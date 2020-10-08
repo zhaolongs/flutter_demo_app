@@ -1,16 +1,6 @@
 # flutter_test_app
 
-A new Flutter application.
 
-## Getting Started
+ [Flutter CustomScrollView实现的一个经典滑动折叠头部图片的效果](https://github.com/zhaolongs/flutter_demo_app/blob/master/lib/scroll/customscroll_demo_page.dart)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ [Flutter NestedScrollView实现的一个经典滑动折叠头部图片的效果](https://github.com/zhaolongs/flutter_demo_app/blob/master/lib/scroll/netscroll_home_page.dart)
