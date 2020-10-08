@@ -1,0 +1,34 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_custom_camera_pugin (0.0.1):
+    - Flutter
+  - flutter_fai_webview (0.0.1):
+    - Flutter
+  - flutter_html_text_plugin (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_custom_camera_pugin (from `.symlinks/plugins/flutter_custom_camera_pugin/ios`)
+  - flutter_fai_webview (from `.symlinks/plugins/flutter_fai_webview/ios`)
+  - flutter_html_text_plugin (from `.symlinks/plugins/flutter_html_text_plugin/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_custom_camera_pugin:
+    :path: ".symlinks/plugins/flutter_custom_camera_pugin/ios"
+  flutter_fai_webview:
+    :path: ".symlinks/plugins/flutter_fai_webview/ios"
+  flutter_html_text_plugin:
+    :path: ".symlinks/plugins/flutter_html_text_plugin/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_custom_camera_pugin: 7566d6050ecc4e2b01ef892a0b1a36ee7a2da5d7
+  flutter_fai_webview: 7ecaa35047fd557c12e86a698e05fba18f5b25eb
+  flutter_html_text_plugin: 17905cfddc60b031f1070418983bb3338c750304
+
+PODFILE CHECKSUM: f32fb4e7c14f8b3ca19a369d7be425dd9241af27
+
+COCOAPODS: 1.9.3
