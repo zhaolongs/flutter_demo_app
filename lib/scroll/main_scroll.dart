@@ -25,8 +25,8 @@ class SwitchMainApp extends StatelessWidget{
       ),
       ///默认的首页面
 //    home: ScrollHomePage(),
-      home: NetScrollHomePage(),
-//    home: CustomScrollHomePage(),
+//      home: NetScrollHomePage(),
+    home: CustomScrollHomePage(),
 //    home: CustomScrollDemoPage(),
     );
 

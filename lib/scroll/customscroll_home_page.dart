@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,28 +8,7 @@ class CustomScrollHomePage extends StatefulWidget {
   }
 }
 
-class ScrollHomePageState extends State with SingleTickerProviderStateMixin {
-  List<String> _list = new List();
-  List<Color> myColors = new List();
-
-  String imageUrl =
-      "https://timgsa.baidu.com/timg?demo.image&quality=80&size=b9999_10000&sec=1578583093&di=0bf687d9589dc5c6c0778de9576ee077&imgtype=jpg&er=1&src=http%3A%2F%2Ffile.mumayi.com%2Fforum%2F201403%2F28%2F111010vhgc45hkh41f1mfd.jpg";
-
-  TabController tabController;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    tabController = new TabController(length: 3, vsync: this);
-    _list.add("政府");
-    _list.add("部门11");
-    _list.add("部门22");
-    myColors.add(Colors.red);
-    myColors.add(Colors.lightBlue);
-    myColors.add(Colors.lightBlue);
-  }
-
+class ScrollHomePageState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,52 +19,88 @@ class ScrollHomePageState extends State with SingleTickerProviderStateMixin {
       ///SingleChildScrollView
       ///NestedScrollView
       /// 处理滑动
-      body: CustomScrollView(
-        ///反弹效果
-        physics: BouncingScrollPhysics(),
-        slivers: <Widget>[
-          SliverAppBar(
-            title: Text("讲解组合滑动"),
-          ),
+      body: buildCustomScrollView(),
+    );
+  }
 
-          SliverPadding(
-            padding: EdgeInsets.all(5),
-          ),
+  CustomScrollView buildCustomScrollView() {
+    return CustomScrollView(
+      ///反弹效果
+      physics: BouncingScrollPhysics(),
 
-          ///九宫格
-          SliverGrid(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              ///九宫格的列数
-              crossAxisCount: 3,
+      ///Sliver 家族的 Widget
+      slivers: <Widget>[
+        ///复杂的标题
+        buildSliverAppBar(),
 
-              ///子Widget 宽与高的比值
-              childAspectRatio: 2.0,
+        ///间距
+        SliverPadding(
+          padding: EdgeInsets.all(5),
+        ),
 
-              ///主方向的 两个 子Widget 之间的间距
-              mainAxisSpacing: 10,
+        ///九宫格
+        buildSliverGrid(),
 
-              /// 次方向 子Widget 之间的间距
-              crossAxisSpacing: 10,
-            ),
-            delegate: new SliverChildBuilderDelegate(
-                (BuildContext context, num index) {
-              return Container(
-                color: Colors.blue,
-                child: Text("grid $index"),
-              );
-            }, childCount: 10),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.all(5),
-          ),
-          SliverFixedExtentList(
-            itemExtent: 40,
-            delegate: new SliverChildBuilderDelegate(
-                (BuildContext context, num index) {
-              return Container(color: Colors.red, child: Text("list $index"),margin: EdgeInsets.only(bottom: 10),);
-            }, childCount: 40),
-          )
-        ],
+        ///间距
+        SliverPadding(
+          padding: EdgeInsets.all(5),
+        ),
+
+        ///列表
+        buildSliverFixedExtentList()
+      ],
+    );
+  }
+
+  SliverAppBar buildSliverAppBar() {
+    return SliverAppBar(
+      title: Text("讲解组合滑动"),
+    );
+  }
+
+  SliverGrid buildSliverGrid() {
+    return SliverGrid(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        ///九宫格的列数
+        crossAxisCount: 3,
+        ///子Widget 宽与高的比值
+        childAspectRatio: 2.0,
+        ///主方向的 两个 子Widget 之间的间距
+        mainAxisSpacing: 10,
+        /// 次方向 子Widget 之间的间距
+        crossAxisSpacing: 10,
+      ),
+      ///子Item构建器
+      delegate: new SliverChildBuilderDelegate(
+        (BuildContext context, num index) {
+          ///每一个子Item的样式
+          return Container(
+            color: Colors.blue,
+            child: Text("grid $index"),
+          );
+        },
+        ///子Item的个数
+        childCount: 10,
+      ),
+    );
+  }
+
+  SliverFixedExtentList buildSliverFixedExtentList() {
+    return SliverFixedExtentList(
+      ///子条目的高度
+      itemExtent: 40,
+      ///子条目布局构建代理
+      delegate: new SliverChildBuilderDelegate(
+        (BuildContext context, num index) {
+          ///子条目的布局样式
+          return Container(
+            color: Colors.red,
+            child: Text("list $index"),
+            margin: EdgeInsets.only(bottom: 10),
+          );
+        },
+        ///子条目的个数
+        childCount: 40,
       ),
     );
   }
