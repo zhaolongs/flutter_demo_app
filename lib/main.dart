@@ -5,6 +5,8 @@ import 'package:flutter_test_app/test_drag_and_drop_gridview_widget.dart';
 import 'package:flutter_test_app/test_html2_widget.dart';
 import 'package:flutter_test_app/test_html_widget.dart';
 import 'package:flutter_test_app/test_orientation_widget.dart';
+import 'package:flutter_test_app/test_progress_home_page.dart';
+import 'package:flutter_test_app/test_slider_home_page.dart';
 import 'package:flutter_test_app/test_splash_widget.dart';
 import 'package:flutter_test_app/test_webview_widget.dart';
 import 'package:flutter_test_app/test_widget_live_widget.dart';
@@ -124,6 +126,22 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
 
+            OutlineButton(
+              child: Text("滑块 Slider  "),
+              onPressed: () {//OrientationBuilder
+                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                  return new SliderHomePage();
+                }));
+              },
+            ),
+            OutlineButton(
+              child: Text(" 进度条 "),
+              onPressed: () {//OrientationBuilder
+                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                  return new ProgressHomePage();
+                }));
+              },
+            ),
 
 
           ],

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_app/clip/test_clip_oval_page.dart';
+import 'package:flutter_test_app/clip/test_clip_react_page.dart';
 
 
 /// 创建人： Created by zhaolong
@@ -29,8 +30,8 @@ class TestClipMainPage extends StatelessWidget{
       ),
       ///默认的首页面
 //    home: ScrollHomePage(),
-//      home: NetScrollHomePage(),
-      home: TestClipOvalPage(),
+      home: TestClipReactPage(),
+//      home: TestClipOvalPage(),
 //    home: CustomScrollDemoPage(),
     );
   }
