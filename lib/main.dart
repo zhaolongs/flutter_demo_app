@@ -9,6 +9,8 @@ import 'package:flutter_test_app/test_splash_widget.dart';
 import 'package:flutter_test_app/test_webview_widget.dart';
 import 'package:flutter_test_app/test_widget_live_widget.dart';
 
+import 'clip/clip_main.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -113,6 +115,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               },
             ),
+            OutlineButton(
+              child: Text("裁剪 组件测试 "),
+              onPressed: () {//OrientationBuilder
+                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                  return new TestClipMainPage();
+                }));
+              },
+            ),
+
 
 
           ],

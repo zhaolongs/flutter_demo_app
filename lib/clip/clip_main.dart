@@ -1,17 +1,21 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/clip/test_clip_oval_page.dart';
 
-import 'customscroll_demo_page.dart';
-import 'customscroll_home_page.dart';
-import 'netscroll_home_page.dart';
-import 'scroll_home_page.dart';
 
-///flutter应用程序中的入口函数
-void main()=>runApp(SwitchMainApp());
+/// 创建人： Created by zhaolong
+/// 创建时间：Created by  on 2020/10/11.
+///
+/// 可关注公众号：我的大前端生涯   获取最新技术分享
+/// 可关注网易云课堂：https://study.163.com/instructor/1021406098.htm
+/// 可关注博客：https://blog.csdn.net/zl18603543572
+/// 
+/// 代码清单
+///
+
+void main()=>runApp(TestClipMainPage());
 ///应用的根布局
-class SwitchMainApp extends StatelessWidget{
+class TestClipMainPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     ///构建Materia Desin 风格的应用程序
@@ -26,10 +30,8 @@ class SwitchMainApp extends StatelessWidget{
       ///默认的首页面
 //    home: ScrollHomePage(),
 //      home: NetScrollHomePage(),
-    home: CustomScrollHomePage(),
+      home: TestClipOvalPage(),
 //    home: CustomScrollDemoPage(),
     );
   }
 }
-
-
