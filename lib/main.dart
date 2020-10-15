@@ -12,6 +12,7 @@ import 'package:flutter_test_app/test_webview_widget.dart';
 import 'package:flutter_test_app/test_widget_live_widget.dart';
 
 import 'clip/clip_main.dart';
+import 'icon/test_round_icon_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -142,6 +143,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               },
             ),
+            OutlineButton(
+              child: Text(" 圆角图标 "),
+              onPressed: () {//OrientationBuilder
+                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                  return new TestRuondIconPage();
+                }));
+              },
+            ),
+
+
 
 
           ],
