@@ -2,17 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/async/test_user_notifier_page.dart';
+import 'package:flutter_test_app/async/test_value_notifier_page.dart';
 
-import 'customscroll_demo2_page.dart';
-import 'customscroll_demo_page.dart';
-import 'customscroll_home_page.dart';
-import 'netscroll_home_page.dart';
-import 'scroll_home_page.dart';
+
 
 ///flutter应用程序中的入口函数
-void main()=>runApp(SwitchMainApp());
+void main()=>runApp(AsyncMainApp());
 ///应用的根布局
-class SwitchMainApp extends StatelessWidget{
+class AsyncMainApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     ///构建Materia Desin 风格的应用程序
@@ -25,11 +23,8 @@ class SwitchMainApp extends StatelessWidget{
         brightness: Brightness.light,
       ),
       ///默认的首页面
-//    home: ScrollHomePage(),
-//      home: NetScrollHomePage(),
-//    home: CustomScrollHomePage(),
-//    home: CustomScrollDemoPage(),
-     home: CustomScrollDemo2Page(),
+//    home: TestValueNotifierPage(),
+    home: TestUserNotifierPage(),
     );
   }
 }
