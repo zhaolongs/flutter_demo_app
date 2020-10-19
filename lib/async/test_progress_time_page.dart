@@ -7,7 +7,7 @@ import 'dart:async';
 
 ///通过流 Stream 实现的倒计时功能
 ///倒计时
-class TestTimePage extends StatefulWidget {
+class TestTimeProgressIndicatorPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _TestABPageState();

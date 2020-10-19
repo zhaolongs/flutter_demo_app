@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/async/test_progress_time_page.dart';
 import 'package:flutter_test_app/async/test_sing_stream_page.dart';
+import 'package:flutter_test_app/async/test_stream_builder2_page.dart';
+import 'package:flutter_test_app/async/test_stream_builder_page.dart';
 import 'package:flutter_test_app/async/test_stream_page.dart';
 import 'package:flutter_test_app/async/test_user_notifier_page.dart';
 import 'package:flutter_test_app/async/test_value_notifier_page.dart';
@@ -27,7 +30,10 @@ class AsyncMainApp extends StatelessWidget {
 //    home: TestValueNotifierPage(),
 //    home: TestUserNotifierPage(),
 //    home: TestStreamBaseUsePage(),
-      home: TestSingStreamBaseUsePage(),
+//      home: TestSingStreamBaseUsePage(),
+//    home: TestStreamBuilderPage(),
+//      home: TestTimerBuilderPage(),
+      home: TestTimeProgressIndicatorPage(),
     );
   }
 }
