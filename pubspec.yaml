@@ -31,6 +31,8 @@ dependencies:
 
   flutter_fai_webview: ^1.1.2
 
+  flutter_bloc: ^6.0.6
+
   intl: ^0.16.1
 
   #生命周期组件
