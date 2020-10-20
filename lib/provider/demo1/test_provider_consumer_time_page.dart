@@ -19,7 +19,6 @@ class TestProviderConsumerTimePage extends StatefulWidget {
 class _TestABPageState extends State {
   ///计时器
   Timer _timer;
-
   @override
   void initState() {
     super.initState();
@@ -33,7 +32,6 @@ class _TestABPageState extends State {
   @override
   void dispose() {
     super.dispose();
-
     ///取消计时器
     _timer.cancel();
   }
@@ -43,24 +41,35 @@ class _TestABPageState extends State {
     ///页面主体脚手架
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bloc "),
+        title: Text("Provider "),
       ),
       body: buildBlocBuilder(),
     );
   }
 
-  ///代码清单1-1
-  /// 通过 BlocBuilder 来消费事件结果
+  ///代码清单1-4
+  /// 通过 Consumer 来消费事件结果
   Widget buildBlocBuilder() {
-   return Consumer<TimeCounterModel>(builder: (BuildContext context, value, Widget child) {
-      return  Container(
-        ///外边距
-        margin: EdgeInsets.only(left: 12, top: 12),
-        child: Text(
-          '${value.formatTime}',
-          style: TextStyle(fontSize: 22.0, color: Colors.red),
-        ),
-      );
-    },);
+    return Consumer<TimeCounterModel>(
+      ///参数 value 就是绑定的事件结果 TimeCounterModel
+      builder: (BuildContext context, value, Widget child) {
+        return Container(
+          ///外边距
+          margin: EdgeInsets.only(left: 12, top: 12),
+          child: Text(
+            '${value.formatTime}',
+            style: TextStyle(fontSize: 22.0, color: Colors.red),
+          ),
+        );
+      },
+    );
   }
 }
+
+
+
+
+
+
+
+

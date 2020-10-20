@@ -19,9 +19,17 @@ import 'package:flutter/cupertino.dart';
 
 class RandomNumberModel with ChangeNotifier {
   int _randomNumber=0;
+
+  ///指定数据
   void testNumber(int number) {
     _randomNumber = number;
     notifyListeners();//2
+  }
+
+  ///随机数据
+  void testRandom(){
+    _randomNumber = Random().nextInt(100);
+    notifyListeners();
   }
   get randomNumber => _randomNumber;//3
 }
