@@ -15,26 +15,33 @@ class TestTimeProgressIndicatorPage extends StatefulWidget {
 }
 
 class _TestABPageState extends State {
-
   ///单订阅流
   StreamController<double> _streamController = StreamController();
-  
-  ///页面B返回的数据
-  String _message = "--";
-
   ///计时器
   Timer _timer;
-
   ///倒计时6秒
   double totalTimeNumber = 6000;
-
   ///当前的时间
   double currentTimeNumber = 6000;
 
   @override
   void initState() {
     super.initState();
-    startTimer();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ///当前页面绘制完第一帧后回调
+      ///在这里开启定时器
+      startTimer();
+    });
+
+  }
+
+
+  @override
+  void dispose() {
+    super.dispose();
+    ///关闭
+    _streamController.close();
+    _timer.cancel();
   }
 
   void startTimer() {
@@ -54,38 +61,38 @@ class _TestABPageState extends State {
     });
   }
 
-
-  @override
-  void dispose() {
-    super.dispose();
-    ///关闭
-    _streamController.close();
-    _timer.cancel();
-  }
-
   @override
   Widget build(BuildContext context) {
     ///页面主体脚手架
     return Scaffold(
       appBar: AppBar(
-        title: Text("测试Stream $_message"),
+        title: Text("测试Stream "),
       ),
-      body: Column(children: [
-        Container(
-          child: buildStreamBuilder(),
-          margin: EdgeInsets.only(top: 20, left: 20),
-        ),
+      body: Column(
+        children: [
 
-        SizedBox(height: 40,),
+          ///圆圈部分
+          Container(
+            child: buildStreamBuilder(),
+            margin: EdgeInsets.only(top: 20, left: 20),
+          ),
+          ///间隔
+          SizedBox(
+            height: 40,
+          ),
 
-        OutlineButton(child: Text('开始倒计时'), onPressed: () {
-          currentTimeNumber = totalTimeNumber;
-          if (!_timer.isActive) {
-            startTimer();
-        }
-
-        },)
-      ],),
+          ///Demo的控制按钮
+          OutlineButton(
+            child: Text('开始倒计时'),
+            onPressed: () {
+              currentTimeNumber = totalTimeNumber;
+              if (!_timer.isActive) {
+                startTimer();
+              }
+            },
+          )
+        ],
+      ),
     );
   }
 
