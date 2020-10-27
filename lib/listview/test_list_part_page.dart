@@ -26,10 +26,23 @@ class _TestABPageState extends State {
 
   @override
   Widget build(BuildContext context) {
+
+    int testFlag =0;
+
+    String textMessage ="";
+    Color textColor = Colors.red;
+
+
+    if(testFlag==0){
+      textMessage ='执行中';
+      textColor = Colors.green;
+    }else if(testFlag==1){
+
+    }
     ///页面主体脚手架
     return Scaffold(
       appBar: AppBar(
-        title: Text("ListView 局部数据更新 "),
+        title: Text("ListView 局部数据更新 $textMessage"),
       ),
       body: buildListView(),
     );
