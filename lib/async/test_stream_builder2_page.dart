@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:intl/intl.dart';
 
 /// 对比使用 StreamBuilder 实现的计时性能分析 Demo
-class TestTimerBuilderPage extends StatefulWidget {
+class TestTimer2BuilderPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _TestABPageState();

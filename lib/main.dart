@@ -8,6 +8,7 @@ import 'package:flutter_test_app/test_orientation_widget.dart';
 import 'package:flutter_test_app/test_progress_home_page.dart';
 import 'package:flutter_test_app/test_slider_home_page.dart';
 import 'package:flutter_test_app/test_splash_widget.dart';
+import 'package:flutter_test_app/test_tabbar_home_page.dart';
 import 'package:flutter_test_app/test_webview_widget.dart';
 import 'package:flutter_test_app/test_widget_live_widget.dart';
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Test Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        tabBarTheme: TabBarTheme(),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       navigatorObservers: [lifeFouteObserver],
@@ -51,120 +53,129 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            RaisedButton(
-              child: Text("测试生命周期"),
-              onPressed: () {
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestWidgetLivePage();
-                }));
-              },
-            ),
-            RaisedButton(
-              child: Text("测试 相机相册功能"),
-              onPressed: () {
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestCustomCameraPage();
-                }));
-              },
-            ),
-            RaisedButton(
-              child: Text("测试 横竖屏切换"),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestOrientationPage();
-                }));
-              },
-            ),
-            OutlineButton(
-              child: Text("GridView 的拖动切换"),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestDropGridPage();
-                }));
-              },
-            ),
-            OutlineButton(
-              child: Text("玩一玩解析 HTML"),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestHtmlPage();
-                }));
-              },
-            ),
-            OutlineButton(
-              child: Text("骚操作 HTML"),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestHtmlPage2();
-                }));
-              },
-            ),
-            OutlineButton(
-              child: Text("骚操作 页面切换"),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new LiquidSwipeDemo();
-                }));
-              },
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RaisedButton(
+                child: Text("测试生命周期"),
+                onPressed: () {
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestWidgetLivePage();
+                  }));
+                },
+              ),
+              RaisedButton(
+                child: Text("测试 相机相册功能"),
+                onPressed: () {
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestCustomCameraPage();
+                  }));
+                },
+              ),
+              RaisedButton(
+                child: Text("测试 横竖屏切换"),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestOrientationPage();
+                  }));
+                },
+              ),
+              OutlineButton(
+                child: Text("GridView 的拖动切换"),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestDropGridPage();
+                  }));
+                },
+              ),
+              OutlineButton(
+                child: Text("玩一玩解析 HTML"),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestHtmlPage();
+                  }));
+                },
+              ),
+              OutlineButton(
+                child: Text("骚操作 HTML"),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestHtmlPage2();
+                  }));
+                },
+              ),
+              OutlineButton(
+                child: Text("骚操作 页面切换"),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new LiquidSwipeDemo();
+                  }));
+                },
+              ),
 
-            OutlineButton(
-              child: Text("测试 Html "),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new DefaultHexRefreshPage();
-                }));
-              },
-            ),
-            OutlineButton(
-              child: Text("裁剪 组件测试 "),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestClipMainPage();
-                }));
-              },
-            ),
+              OutlineButton(
+                child: Text("测试 Html "),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new DefaultHexRefreshPage();
+                  }));
+                },
+              ),
+              OutlineButton(
+                child: Text("裁剪 组件测试 "),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestClipMainPage();
+                  }));
+                },
+              ),
 
-            OutlineButton(
-              child: Text("滑块 Slider  "),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new SliderHomePage();
-                }));
-              },
-            ),
-            OutlineButton(
-              child: Text(" 进度条 "),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new ProgressHomePage();
-                }));
-              },
-            ),
-            OutlineButton(
-              child: Text(" 圆角图标 "),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestRuondIconPage();
-                }));
-              },
-            ),
-            OutlineButton(
-              child: Text(" List View 局部更新 "),
-              onPressed: () {//OrientationBuilder
-                Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
-                  return new TestListPartPage();
-                }));
-              },
-            ),
-
-
+              OutlineButton(
+                child: Text("滑块 Slider  "),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new SliderHomePage();
+                  }));
+                },
+              ),
+              OutlineButton(
+                child: Text(" 进度条 "),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new ProgressHomePage();
+                  }));
+                },
+              ),
+              OutlineButton(
+                child: Text(" 圆角图标 "),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestRuondIconPage();
+                  }));
+                },
+              ),
+              OutlineButton(
+                child: Text(" List View 局部更新 "),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestListPartPage();
+                  }));
+                },
+              ),
 
 
-          ],
+              OutlineButton(
+                child: Text(" Tab 测试  "),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new TestTabBarHomePage();
+                  }));
+                },
+              ),
+
+            ],
+          ),
         ),
       ),
     );

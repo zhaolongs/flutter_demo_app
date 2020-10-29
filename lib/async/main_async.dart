@@ -32,8 +32,9 @@ class AsyncMainApp extends StatelessWidget {
 //    home: TestStreamBaseUsePage(),
 //      home: TestSingStreamBaseUsePage(),
 //    home: TestStreamBuilderPage(),
-//      home: TestTimerBuilderPage(),
-      home: TestTimeProgressIndicatorPage(),
+//      home: TestTimer2BuilderPage(),
+           home: TestStreamBuilderPage(),
+      // home: TestTimeProgressIndicatorPage(),
     );
   }
 }
