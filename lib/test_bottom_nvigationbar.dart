@@ -35,23 +35,28 @@ class _HomePageState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //标题栏
       appBar: AppBar(
         title: Text("测试"),
       ),
+      //页面主体
       body: homeItemList[_selectIndex],
+      //底部菜单栏
       bottomNavigationBar: buildBottom(),
     );
   }
 
 
+  //所有的子页面
   List<HomeItemPage> homeItemList = [
     HomeItemPage(0),
     HomeItemPage(1),
     HomeItemPage(2),
   ];
-
+  //当前选中的页面
   int _selectIndex = 0;
 
+  //底部菜单栏
   buildBottom() {
     return BottomNavigationBar(
       items: [
@@ -59,7 +64,8 @@ class _HomePageState extends State {
         BottomNavigationBarItem(icon: Icon(Icons.message), label: "消息"),
         BottomNavigationBarItem(icon: Icon(Icons.people), label: "我的"),
       ],
-      currentIndex: _selectIndex,
+      currentIndex: _selectIndex, //当前显示的页面索引
+      //点击菜单栏的回调
       onTap: (int index) {
         setState(() {
           _selectIndex = index;

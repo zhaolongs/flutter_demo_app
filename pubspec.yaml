@@ -98,3 +98,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  #配置图片的目录结构
+  assets:
+    #一倍图目录
+    - images/
