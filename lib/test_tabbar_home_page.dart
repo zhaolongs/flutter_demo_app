@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/custom_tabbar.dart';
 
 class TestTabBarHomePage extends StatefulWidget {
   @override
@@ -56,6 +57,9 @@ class SliderHomePageState extends State with SingleTickerProviderStateMixin {
     );
   }
 
+  Widget testCustomTabBar(){
+    return CustomTabBar(controller: null,);
+  }
 
   Theme buildTheme() {
     return Theme(
