@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage>{
   }
 
   Widget buildBottomSheetWidget(BuildContext context) {
+    //弹框中内容  310 的调试
     return Container(
       height: 310,
       child: Column(
@@ -82,6 +83,7 @@ class _HomePageState extends State<HomePage>{
               resultMessage = "qq 登录点击";
             });
           }),
+
           //分割线
           Divider(),
           buildItem("天翼登录","images/tianyi.png",onTap:(){
