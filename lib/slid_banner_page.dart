@@ -37,10 +37,8 @@ class HomePage extends StatefulWidget {
 class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
   //轮播图使用的控制器
   PageController _pageController;
-
   //轮播图使用的定时器
   Timer _timer;
-
   //轮播图使用的当前的角标
   int currentIndex = 0;
 

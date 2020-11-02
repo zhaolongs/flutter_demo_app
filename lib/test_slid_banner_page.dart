@@ -32,12 +32,28 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State {
+
+  //轮播图 PageView 使用的控制器
   PageController _pageController;
+  //定时器自动轮播
+  Timer _timer;
+  //本地资源图片
+  List<String> imageList = [
+    "images/banner1.webp",
+    "images/banner2.webp",
+    "images/banner3.webp",
+    "images/banner4.webp",
+  ];
+
+  //当前显示的索引
+  int currentIndex = 1000;
 
   @override
   void initState() {
     super.initState();
-    _pageController = new PageController(initialPage: 1000);
+    //初始化控制器
+    // initialPage 为初始化显示的子Item
+    _pageController = new PageController(initialPage: currentIndex);
 
     ///当前页面绘制完第一帧后回调
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -51,8 +67,7 @@ class _HomepageState extends State {
     _timer.cancel();
   }
 
-  //定时器自动轮播
-  Timer _timer;
+
 
   void startTimer() {
     //间隔两秒时间
@@ -62,6 +77,7 @@ class _HomepageState extends State {
       //触发轮播切换
       _pageController.animateToPage(currentIndex,
           duration: Duration(milliseconds: 200), curve: Curves.ease);
+      //刷新
       setState(() {
 
       });
@@ -95,21 +111,16 @@ class _HomepageState extends State {
     );
   }
 
-  List<String> imageList = [
-    "images/banner1.webp",
-    "images/banner2.webp",
-    "images/banner3.webp",
-    "images/banner4.webp",
-  ];
 
-  //当前显示的索引
-  int currentIndex = 0;
 
   buildBannerWidget() {
+    //懒加载方式构建
     return PageView.builder(
+      //构建每一个子Item的布局
       itemBuilder: (BuildContext context, int index) {
         return buildPageViewItemWidget(index);
       },
+      //控制器
       controller: _pageController,
       //轮播个数 无限轮播 ??
       itemCount: imageList.length * 10000,
@@ -140,7 +151,9 @@ class _HomepageState extends State {
         padding: EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 2),
         //圆角边框
         decoration: BoxDecoration(
+          //背景
             color: Colors.white,
+            //边框圆角
             borderRadius: BorderRadius.all(Radius.circular(10))),
         child:
             Text("${currentIndex % imageList.length + 1}/${imageList.length}"),
