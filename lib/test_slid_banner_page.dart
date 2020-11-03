@@ -25,13 +25,18 @@ class RootApp extends StatelessWidget {
 }
 
 class BannerHomepage extends StatefulWidget {
+  final bool isTitle;
+
+
+  BannerHomepage({this.isTitle=true});
+
   @override
   State<StatefulWidget> createState() {
     return _BannerHomepageState();
   }
 }
 
-class _BannerHomepageState extends State {
+class _BannerHomepageState extends State<BannerHomepage> {
 
   //轮播图 PageView 使用的控制器
   PageController _pageController;
@@ -87,9 +92,9 @@ class _BannerHomepageState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar:widget.isTitle? AppBar(
         title: Text("轮播图"),
-      ),
+      ):null,
       body: Container(
         child: buildBanner(),
       ),
@@ -98,7 +103,7 @@ class _BannerHomepageState extends State {
 
   Widget buildBanner() {
     return Container(
-      height: 200,
+      // height: 200,
       width: double.infinity,
       child: Stack(
         children: [

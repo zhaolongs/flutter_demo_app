@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test_app/test_slid_banner_page.dart';
 
 /// 创建人： Created by zhaolong
 /// 创建时间：Created by  on 2020/11/1.
@@ -36,19 +37,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
-  //NestedScrollView的滚动控制器
-  //用来监听滚动距离
-  ScrollController scrollController = new ScrollController();
 
   //在这里标签页面使用的是TabView所以需要创建一个控制器
   TabController tabController;
-  //轮播图使用的控制器
-  PageController _pageController;
-
-  //轮播图使用的定时器
-  Timer _timer;
-  //轮播图使用的当前的角标
-  int currentIndex = 0;
 
   //页面初始化方法
   @override
@@ -56,34 +47,12 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
     super.initState();
     //初始化
     tabController = new TabController(length: 3, vsync: this);
-    //轮播图
-    _pageController = new PageController();
-
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ///当前页面绘制完第一帧后回调
-      ///在这里开启定时器
-      startTimer();
-    });
-  }
-
-  void startTimer() {
-    ///间隔2000毫秒执行时间
-    _timer = Timer.periodic(Duration(milliseconds: 2000), (timer) {
-      currentIndex++;
-      _pageController.animateToPage(currentIndex % 3,
-          duration: Duration(milliseconds: 200), curve: Curves.ease);
-      setState(() {});
-    });
   }
 
   //页面销毁回调生命周期
   @override
   void dispose() {
-    super.dispose();
-    //释放资源
-    scrollController.dispose();
     tabController.dispose();
-    _timer.cancel();
   }
 
   //页面构建方法
@@ -93,61 +62,51 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
     return Scaffold(
       //下拉刷新
       body: RefreshIndicator(
-          //可滚动组件在滚动时会发送ScrollNotification类型的通知
-          notificationPredicate: (ScrollNotification notifation) {
-            //该属性包含当前ViewPort及滚动位置等信息
-            ScrollMetrics scrollMetrics = notifation.metrics;
-            if (scrollMetrics.minScrollExtent == 0) {
-              return true;
-            } else {
-              return false;
-            }
-          },
-          //下拉刷新回调方法
-          onRefresh: () async {
-            //模拟网络刷新 等待2秒
-            await Future.delayed(Duration(milliseconds: 2000));
-            //返回值以结束刷新
-            return Future.value(true);
-          },
-          //页面的主体内容
-          //是一个 NestedScrollView
-          child: buildNestedScrollView()),
+        //可滚动组件在滚动时会发送ScrollNotification类型的通知
+        notificationPredicate: (ScrollNotification notifation) {
+          //该属性包含当前ViewPort及滚动位置等信息
+          ScrollMetrics scrollMetrics = notifation.metrics;
+          if (scrollMetrics.minScrollExtent == 0) {
+            return true;
+          } else {
+            return false;
+          }
+        },
+        //下拉刷新回调方法
+        onRefresh: () async {
+          //模拟网络刷新 等待2秒
+          await Future.delayed(Duration(milliseconds: 2000));
+          //返回值以结束刷新
+          return Future.value(true);
+        },
+        child: buildNestedScrollView(),
+      ),
     );
   }
-
-
-  //动态计算展开的高度，以很好的适配图片的显示
-  void calculateExpandedHeight() {}
 
   //NestedScrollView 的基本使用
   Widget buildNestedScrollView() {
     //滑动视图
     return NestedScrollView(
-      //配置控制器
-      controller: scrollController,
       //配置可折叠的头布局
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return [buildSliverAppBar2()];
+        return [buildSliverAppBar()];
       },
       //页面的主体内容
       body: buidChildWidget(),
     );
   }
 
-  //lib/code15/main_data1508.dart
   //SliverAppBar
   //flexibleSpace可折叠的内容区域
-  buildSliverAppBar2() {
+  buildSliverAppBar() {
     return SliverAppBar(
       title: buildHeader(),
       //标题居中
       centerTitle: true,
-
       //当此值为true时 SliverAppBar 会固定在页面顶部
       //当此值为fase时 SliverAppBar 会随着滑动向上滑动
       pinned: true,
-
       //当值为true时 SliverAppBar设置的title会随着上滑动隐藏
       //然后配置的bottom会显示在原AppBar的位置
       //当值为false时 SliverAppBar设置的title会不会隐藏
@@ -219,21 +178,13 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
     );
   }
 
-  //lib/code15/main_data1508.dart
   //显示图片与角标区域Widget构建
   buildFlexibleSpaceWidget() {
     return Column(
       children: [
         Container(
           height: 240,
-          child: Stack(
-            children: [
-              //用于显示图片的PageView
-              buildImagePage(),
-              //角标显示
-              buildCornerMark(),
-            ],
-          ),
+          child: BannerHomepage(isTitle: false,),
         ),
         Container(
           child: Row(
@@ -242,12 +193,14 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
                 child: Container(
                   height: 120,
                   color: Colors.blueGrey,
+                  child: Image.asset("images/banner5.jpeg"),
                 ),
               ),
               Expanded(
                 child: Container(
                   color: Colors.brown,
                   height: 120,
+                  child: Image.asset("images/banner6.jpeg"),
                 ),
               ),
             ],
@@ -257,92 +210,6 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
     );
   }
 
-  //lib/code15/main_data1508.dart
-  //图片数据
-  List<String> imagePathList = [
-    "images/banner1.webp",
-    "images/banner2.webp",
-    "images/banner3.webp",
-    "images/banner4.webp",
-  ];
-
-  //当前显示图片的角标
-  int currentShowImageIndex = 0;
-
-  //构建用来显示多张图片的PageView
-  //支持左右滚动
-  Widget buildImagePage() {
-    return Container(
-      child: PageView.builder(
-          controller: _pageController,
-          //页面滚动后的回调
-          //参数 [pageIndex] 为当前页面的角标
-          onPageChanged: (int pageIndex) {
-            setState(() {
-              currentShowImageIndex = pageIndex;
-            });
-          },
-
-          //滚动到边界时的回弹效果
-          physics: BouncingScrollPhysics(),
-
-          //图片个数
-          itemCount: imagePathList.length,
-
-          //构建每个条目的显示
-          itemBuilder: (BuildContext context, int index) {
-            return buildFlexibleSpaceItemWidget(index);
-          }),
-    );
-  }
-
-  //构建显示图片的Widget
-  //参数[index]为当前显示PageView的角标 从0开始
-  Widget buildFlexibleSpaceItemWidget(int index) {
-    //这里是加载使用的本地资源目录assets下的文件
-    //实际项目开发中一般使用的网络图片
-    //只需要替换这里使用网络方式加载即可
-    return Image.asset(
-      imagePathList[index],
-      //图片填充
-      fit: BoxFit.fill,
-    );
-  }
-
-  //lib/code15/main_data1508.dart
-  //角标显示
-  //用来显示滚动图片的位置
-  Widget buildCornerMark() {
-    //在层叠布局Stack中通过Positioned来定位子Widget
-    //这里是右下角对齐
-    return Positioned(
-      bottom: 12,
-      right: 12,
-
-      //通过Container来实现一个半透明的体育场的背景
-      child: Container(
-        //内边距的设置
-        padding: EdgeInsets.only(left: 10, right: 10, top: 4, bottom: 4),
-
-        //边框的装饰
-        decoration: BoxDecoration(
-
-            //半透明背景设置
-            color: Color(0x50999999),
-
-            //圆角矩形的裁剪
-            borderRadius: BorderRadius.all(Radius.circular(15))),
-
-        //显示角标的文本
-        child: Text(
-          "${currentShowImageIndex + 1}/${imagePathList.length}",
-          style: TextStyle(fontSize: 12, color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  //lib/code15/main_data1508.dart
   //[SliverAppBar]的bottom属性配制
   Widget buildFlexibleTooBarWidget() {
     //[PreferredSize]用于配置在AppBar或者是SliverAppBar
@@ -350,18 +217,15 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
     return PreferredSize(
       //定义大小
       preferredSize: Size(MediaQuery.of(context).size.width, 44),
-
       //配置任意的子Widget
       child: Container(
         alignment: Alignment.center,
         child: Container(
           color: Colors.grey[200],
-
           //随着向上滑动，TabBar的宽度逐渐增大
           //父布局Container约束为 center对齐
           //所以程现出来的是中间x轴放大的效果
           width: MediaQuery.of(context).size.width,
-
           child: TabBar(
             controller: tabController,
             tabs: <Widget>[
