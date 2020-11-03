@@ -47,7 +47,6 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
 
   //轮播图使用的定时器
   Timer _timer;
-
   //轮播图使用的当前的角标
   int currentIndex = 0;
 
@@ -55,11 +54,9 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    //ScrollController添加滚动监听
-    scrollController.addListener(controllerListener);
     //初始化
     tabController = new TabController(length: 3, vsync: this);
-
+    //轮播图
     _pageController = new PageController();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -119,8 +116,6 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
     );
   }
 
-  //滚动监听方法
-  void controllerListener() {}
 
   //动态计算展开的高度，以很好的适配图片的显示
   void calculateExpandedHeight() {}

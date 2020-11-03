@@ -19,19 +19,19 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Homepage(),
+      home: BannerHomepage(),
     );
   }
 }
 
-class Homepage extends StatefulWidget {
+class BannerHomepage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomepageState();
+    return _BannerHomepageState();
   }
 }
 
-class _HomepageState extends State {
+class _BannerHomepageState extends State {
 
   //轮播图 PageView 使用的控制器
   PageController _pageController;
