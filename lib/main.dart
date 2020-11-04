@@ -11,6 +11,7 @@ import 'package:flutter_test_app/test_splash_widget.dart';
 import 'package:flutter_test_app/test_tabbar_home_page.dart';
 import 'package:flutter_test_app/test_webview_widget.dart';
 import 'package:flutter_test_app/test_widget_live_widget.dart';
+import 'package:flutter_test_app/text_animations_showModal_page.dart';
 
 import 'clip/clip_main.dart';
 import 'icon/test_round_icon_page.dart';
@@ -173,6 +174,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   }));
                 },
               ),
+
+              OutlineButton(
+                child: Text(" 测试  模态动画  "),
+                onPressed: () {//OrientationBuilder
+                  Navigator.of(context).push(new MaterialPageRoute(builder: (_) {
+                    return new AnimationSshowModalHomePage();
+                  }));
+                },
+              ),
+
 
             ],
           ),
