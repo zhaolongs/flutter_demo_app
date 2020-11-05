@@ -39,6 +39,7 @@ class _HomePageState extends State<AnimationSshowModalHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: Text("浏览图片"),
       ),
@@ -46,13 +47,56 @@ class _HomePageState extends State<AnimationSshowModalHomePage> {
       //子Widget 竖直方向排开
       body: Column(
         children: [
-          //一个按钮
-          OutlineButton(
-            child: Text("点击查看图片"),
-            onPressed: () {
-              showBottomSheet();
-            },
+          Container(
+            color: Colors.white,
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.all(10),
+            child: InkWell(
+              onTap: () {
+                showBottomSheet();
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    "images/banner3.webp",
+                    width: 76,
+                    fit: BoxFit.fill,
+                    height: 76,
+                  ),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "每日分享 精彩一刻",
+                          style: TextStyle(fontSize: 22),
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Container(
+                          child: Text(
+                            "优美的应用体验 来自于细节的处理，更源自于码农的自我要求与努力",
+                            softWrap: true,
+                            overflow:TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
+          //一个按钮
         ],
       ),
     );
@@ -67,9 +111,9 @@ class _HomePageState extends State<AnimationSshowModalHomePage> {
         //阴影背景颜色
         barrierColor: Colors.black54,
         //打开新的Widget 的时间
-        transitionDuration: Duration(milliseconds: 1000),
+        transitionDuration: Duration(milliseconds: 200),
         //关闭新的Widget 的时间
-        reverseTransitionDuration: Duration(milliseconds: 1000),
+        reverseTransitionDuration: Duration(milliseconds: 200),
       ),
       builder: (BuildContext context) {
         //显示的Widget
