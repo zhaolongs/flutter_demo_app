@@ -34,91 +34,21 @@ class AnimationOpenContainerPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<AnimationOpenContainerPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //页面背景
       backgroundColor: Colors.grey[300],
+      //标题
       appBar: AppBar(
         title: Text("浏览图片"),
       ),
-      body: buildOpenContainer2(),
+      //页面主体
+      body: buildBodyWidget(),
     );
   }
 
-  OpenContainer<dynamic> buildOpenContainer2() {
-    return OpenContainer(
-      //背景颜色
-      closedColor: Colors.transparent,
-      //阴影
-      closedElevation: 0.0,
-      //圆角
-      closedShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      ),
-      //显示的布局
-      closedBuilder: (context, action) {
-        return Container(
-          color: Colors.grey,
-          height: 120,
-          margin: EdgeInsets.all(20),
-        );
-      },
-      //过渡的方式
-      transitionType: ContainerTransitionType.fade,
-      //过渡的时间
-      transitionDuration: const Duration(milliseconds: 3500),
-
-      //即将打开的 Widget 的边框样式
-      openShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(1.0)),
-      ),
-      //即将打开的 Widget 的背景
-      openColor: Colors.transparent,
-      //阴影
-      openElevation: 1.0,
-      //布局
-      openBuilder: (context, action) {
-        return DetailsPage();
-      },
-    );
-  }
-
-  Widget buildOpenContainer(int index) {
-    return OpenContainer(
-      //背景颜色
-      closedColor: Colors.transparent,
-      //阴影
-      closedElevation: 0.0,
-      //圆角
-      closedShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      ),
-      //显示的布局
-      closedBuilder: (context, action) {
-        return buildItem(index);
-      },
-      //过渡的方式
-      transitionType: ContainerTransitionType.fade,
-      //过渡的时间
-      transitionDuration: const Duration(milliseconds: 5500),
-
-      //即将打开的 Widget 的边框样式
-      openShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(1.0)),
-      ),
-      //即将打开的 Widget 的背景
-      openColor: Colors.transparent,
-      //阴影
-      openElevation: 1.0,
-      //布局
-      openBuilder: (context, action) {
-        return DetailsPage();
-      },
-    );
-  }
-
-  Widget buildCurrentWidget() {
+  Widget buildBodyWidget() {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(8),
@@ -142,10 +72,85 @@ class _HomePageState extends State<AnimationOpenContainerPage> {
         itemBuilder: (BuildContext context, int index) {
           return Container(
             color: Colors.grey,
-            child: buildOpenContainer(index),
+            child: buildItemAnimationWidget(index),
           );
         },
       ),
+    );
+  }
+
+  Widget buildItemAnimationWidget(int index) {
+    return OpenContainer(
+      //定义下过渡时间
+      transitionDuration: Duration(milliseconds: 800),
+      //当前显示的背景色
+      closedColor: Colors.transparent,
+      //打开过程中的背景色
+      openColor: Colors.transparent,
+      //打开Widget的阴影
+      openElevation: 0.0,
+      //当前显示Widget的阴影
+      closedElevation: 0.0,
+      //点击打开 的页面 如这里的详情页面
+      openBuilder:
+          (BuildContext context, void Function({Object returnValue}) action) {
+        return DetailsPage();
+      },
+      //当前显示的Widget
+      closedBuilder: (BuildContext context, void Function() action) {
+        return buildItem(index);
+      },
+    );
+  }
+
+  Widget buildItemWidget(int index) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (BuildContext context) {
+          return DetailsPage();
+        }));
+      },
+      child: buildItem(index),
+    );
+  }
+
+
+
+
+
+
+  Widget buildOpenContainer(int index) {
+    return OpenContainer(
+      //背景颜色
+      closedColor: Colors.transparent,
+      //阴影
+      closedElevation: 0.0,
+      //圆角
+      closedShape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      ),
+      //显示的布局
+      closedBuilder: (context, action) {
+        return buildItem(index);
+      },
+      //过渡的方式
+      transitionType: ContainerTransitionType.fade,
+      //过渡的时间
+      transitionDuration: const Duration(milliseconds: 800),
+
+      //即将打开的 Widget 的边框样式
+      openShape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(1.0)),
+      ),
+      //即将打开的 Widget 的背景
+      openColor: Colors.transparent,
+      //阴影
+      openElevation: 1.0,
+      //布局
+      openBuilder: (context, action) {
+        return DetailsPage();
+      },
     );
   }
 
