@@ -33,6 +33,9 @@ dependencies:
 
   animations: ^1.1.2
 
+  # 抖动动画  向上弹出动画
+  shake_animation_widget: ^2.0.0
+
   flutter_bloc: ^6.0.6
 
   provider: ^4.3.2+2
