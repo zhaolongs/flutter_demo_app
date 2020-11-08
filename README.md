@@ -28,3 +28,15 @@
       [头条/西瓜视频在这里](https://www.ixigua.com/6892581580443746823/)
 
       [B站](https://www.bilibili.com/video/BV1Dt4y1e7Va/)
+
+
+ * Flutter 一个优美的用户体验的登录页面 抖动提示 文本提示
+
+
+      [源码在这里](https://github.com/zhaolongs/flutter_demo_app/blob/master/lib/test_shake_login_page.dart)
+
+      [知乎视频在这里](https://www.zhihu.com/zvideo/1308873518554267648)
+
+      [头条/西瓜视频在这里](https://www.ixigua.com/6892732997343281675/)
+
+      [B站](https://www.bilibili.com/video/BV1my4y1z75r/)
