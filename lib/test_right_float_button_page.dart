@@ -1,6 +1,5 @@
-import 'package:animations/animations.dart';
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shake_animation_widget/shake_animation_widget.dart';
 
@@ -34,9 +33,6 @@ class HomePage extends StatefulWidget {
 
 class _TestPageState extends State<HomePage> {
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +40,16 @@ class _TestPageState extends State<HomePage> {
         title: Text("测试"),
       ),
       body: Container(
+        //填充
         constraints: BoxConstraints.expand(),
+        //层叠布局
         child: Stack(
           children: [
 
             Positioned(
               right: 33,
               bottom: 33,
+              //悬浮按钮
               child: RoteFloatingButton(
                 //菜单图标组
                 iconList: [
