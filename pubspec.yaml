@@ -36,6 +36,8 @@ dependencies:
   # 抖动动画  向上弹出动画
   shake_animation_widget: ^2.1.2
 
+  matrix4_transform: ^1.1.5
+
   flutter_bloc: ^6.0.6
 
   dio: ^3.0.10

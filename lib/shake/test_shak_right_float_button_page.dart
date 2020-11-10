@@ -36,16 +36,17 @@ class _TestPageState extends State<HomePage> {
         title: Text("测试"),
       ),
       body: Container(
-          //填充
-          constraints: BoxConstraints.expand(),
-          //层叠布局
-          child: Stack(
-            children: [
-              //页面中的其他布局
-              //右侧向上弹出的动画菜单
-              buildContainer(),
-            ],
-          )),
+        //填充
+        constraints: BoxConstraints.expand(),
+        //层叠布局
+        child: Stack(
+          children: [
+            //页面中的其他布局
+            //右侧向上弹出的动画菜单
+            buildContainer(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -54,7 +55,10 @@ class _TestPageState extends State<HomePage> {
       child: RoteFlowButtonMenu(
         //菜单图标组
         iconList: [
-          Icon(Icons.backup_table_sharp,color: Colors.white,),
+          Icon(
+            Icons.backup_table_sharp,
+            color: Colors.white,
+          ),
           Icon(Icons.aspect_ratio, color: Colors.white),
           Icon(Icons.medical_services, color: Colors.white),
           Icon(Icons.add, color: Colors.white),
@@ -67,9 +71,7 @@ class _TestPageState extends State<HomePage> {
           Colors.blueAccent,
         ],
         //点击事件回调
-        clickCallBack: (int index) {
-
-        },
+        clickCallBack: (int index) {},
       ),
     );
   }
