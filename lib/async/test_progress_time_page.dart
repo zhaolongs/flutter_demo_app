@@ -4,7 +4,18 @@ import 'package:flutter/material.dart';
 
 import 'dart:async';
 
+void main() {
+  runApp(RootPage());
+}
 
+class RootPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: TestTimeProgressIndicatorPage(),
+    );
+  }
+}
 ///通过流 Stream 实现的倒计时功能
 ///倒计时
 class TestTimeProgressIndicatorPage extends StatefulWidget {
