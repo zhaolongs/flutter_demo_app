@@ -25,12 +25,12 @@ class RootPage extends StatelessWidget {
     );
   }
 }
+
 //Hero动画
 class HeroHomePage extends StatefulWidget {
   @override
   _TestPageState createState() => _TestPageState();
 }
-
 
 class _TestPageState extends State<HeroHomePage> {
   @override
@@ -154,18 +154,11 @@ class DetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text("精彩人生"),
       ),
-      body: buildCurrentWidget(),
+      body: buildCurrentWidget(context),
     );
   }
 
-  static const opacityCurve =
-      const Interval(0.0, 0.75, curve: Curves.fastOutSlowIn);
-
-  static RectTween _createRectTween(Rect begin, Rect end) {
-    return MaterialRectCenterArcTween(begin: begin, end: end);
-  }
-
-  Widget buildCurrentWidget() {
+  Widget buildCurrentWidget(BuildContext context) {
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(8),
@@ -173,37 +166,45 @@ class DetailsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Hero(
-            tag: "test",
-            createRectTween: _createRectTween,
-            child: Material(
-              color: Colors.blue,
-              child: Image.asset(
-                "images/banner3.webp",
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
+          //图片区域
+          buildHero(context),
           SizedBox(
-            width: 12,
+            width: 22,
           ),
-          Text(
-            "每日分享 精彩一刻",
-            style: TextStyle(fontSize: 22),
-          ),
-          SizedBox(
-            height: 4,
-          ),
-          Container(
-            child: Text(
-              "优美的应用体验 来自于细节的处理，更源自于码农的自我要求与努力",
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 3,
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
+          //文字区域
+          buildTextContainer(),
         ],
+      ),
+    );
+  }
+
+  ///图片区域
+  Hero buildHero(BuildContext context) {
+    return Hero(
+      tag: "test",
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        child: Material(
+          color: Colors.blue,
+          child: Image.asset(
+            "images/banner3.webp",
+            fit: BoxFit.fill,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildTextContainer() {
+    return Container(
+      child: Text(
+        "优美的应用体验 来自于细节的处理，更源自于码农的自我要求与努力",
+        softWrap: true,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 3,
+        style: TextStyle(fontSize: 16),
       ),
     );
   }
