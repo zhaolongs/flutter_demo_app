@@ -39,7 +39,7 @@ class _TestPageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
 
-    getRequest();
+    dioGetRequest();
   }
 
   @override

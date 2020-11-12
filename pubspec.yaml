@@ -45,7 +45,7 @@ dependencies:
   provider: ^4.3.2+2
 
   intl: ^0.16.1
-
+  pull_to_refresh: ^1.6.2
   #生命周期组件
   flutter_life_state:
     git:

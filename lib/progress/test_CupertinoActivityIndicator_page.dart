@@ -25,7 +25,6 @@ class RootPage extends StatelessWidget {
   }
 }
 
-///下拉刷新组件
 class HomePageRefreshIndicator extends StatefulWidget {
   @override
   _TestPageState createState() => _TestPageState();
@@ -36,30 +35,28 @@ class _TestPageState extends State<HomePageRefreshIndicator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("下拉刷新"),
+        title: Text("苹果风格"),
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          //下拉刷新组件
-          CupertinoSliverRefreshControl(
-            //下拉刷新回调
-            onRefresh: () async {
-              //模拟网络请求
-              await Future.delayed(Duration(milliseconds: 3000));
-              //结束刷新
-              return Future.value(true);
-            },
+      body:  Center(
+        child: Container(
+          child: CupertinoActivityIndicator(
+            //半径  外部设置大小约束无效果
+            radius: 30,
+            //是否转动 默认为 true 开启转动
+            animating: true,
           ),
-          //列表
-          SliverList(
-            delegate: SliverChildBuilderDelegate((content, index) {
-              return ListTile(
-                title: Text('测试数据$index'),
-              );
-            }, childCount: 100),
-          )
-        ],
+        ),
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+

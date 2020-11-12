@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 /// 创建人： Created by zhaolong
 /// 创建时间：Created by  on 2020/10/31.
@@ -32,33 +33,38 @@ class HomePageRefreshIndicator extends StatefulWidget {
 }
 
 class _TestPageState extends State<HomePageRefreshIndicator> {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("下拉刷新"),
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          //下拉刷新组件
-          CupertinoSliverRefreshControl(
-            //下拉刷新回调
-            onRefresh: () async {
-              //模拟网络请求
-              await Future.delayed(Duration(milliseconds: 3000));
-              //结束刷新
-              return Future.value(true);
-            },
-          ),
-          //列表
-          SliverList(
-            delegate: SliverChildBuilderDelegate((content, index) {
-              return ListTile(
-                title: Text('测试数据$index'),
-              );
-            }, childCount: 100),
-          )
-        ],
+      //下拉刷新组件
+      body: SmartRefresher(
+        controller: _refreshController,
+        //水滴刷新头
+        header: WaterDropMaterialHeader(),
+        enablePullUp: true,
+        onRefresh: () async {
+          //模拟网络请求
+          await Future.delayed(Duration(milliseconds: 2000));
+          //结束刷新
+          _refreshController.refreshCompleted();
+        },
+        //一个列表
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              height: 66,
+              child: Text("测试数据"),
+            );
+          },
+          //列表数据源数量
+          itemCount: 100,
+        ),
       ),
     );
   }

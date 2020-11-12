@@ -36,29 +36,23 @@ class _TestPageState extends State<HomePageRefreshIndicator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("下拉刷新"),
+        title: Text("线性"),
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          //下拉刷新组件
-          CupertinoSliverRefreshControl(
-            //下拉刷新回调
-            onRefresh: () async {
-              //模拟网络请求
-              await Future.delayed(Duration(milliseconds: 3000));
-              //结束刷新
-              return Future.value(true);
-            },
-          ),
-          //列表
-          SliverList(
-            delegate: SliverChildBuilderDelegate((content, index) {
-              return ListTile(
-                title: Text('测试数据$index'),
-              );
-            }, childCount: 100),
-          )
-        ],
+
+      body:  Container(
+        margin: EdgeInsets.all(20),
+        width: 300,
+        //会覆盖 进度条的 minHeight
+        height: 10,
+        child: LinearProgressIndicator(
+          // value: 0.3,
+          //进度高亮颜色
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue),
+          //总进度的颜色
+          backgroundColor: Color(0xff00ff00),
+          //设置进度条的高度
+          minHeight: 10,
+        ),
       ),
     );
   }
