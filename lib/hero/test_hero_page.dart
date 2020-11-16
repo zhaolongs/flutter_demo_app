@@ -36,10 +36,13 @@ class _TestPageState extends State<HeroHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //背景
       backgroundColor: Colors.grey[200],
+      //标题
       appBar: AppBar(
         title: Text("每日分享"),
       ),
+      //页面主体
       body: buildBodyWidget(),
     );
   }
@@ -57,9 +60,15 @@ class _TestPageState extends State<HeroHomePage> {
         color: Colors.white,
         //线性布局左右排列
         child: Row(
+          //主轴方向开始对齐 在这里是左对齐
           mainAxisAlignment: MainAxisAlignment.start,
+          //交叉轴上开始对齐 在这里是顶部对齐
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [buildLeftImage(), buildRightTextArea()],
+          children: [
+            //左侧的图片
+            buildLeftImage(),
+            //右侧的文本区域
+            buildRightTextArea()],
         ),
       ),
     );
@@ -182,12 +191,12 @@ class DetailsPage extends StatelessWidget {
   Hero buildHero(BuildContext context) {
     return Hero(
       tag: "test",
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).pop();
-        },
-        child: Material(
-          color: Colors.blue,
+      child: Material(
+        color: Colors.blue,
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
           child: Image.asset(
             "images/banner3.webp",
             fit: BoxFit.fill,
