@@ -112,3 +112,10 @@ flutter:
   assets:
     #一倍图目录
     - images/
+    - images/logos/
+
+
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: images/fonts/OpenSans.ttf
