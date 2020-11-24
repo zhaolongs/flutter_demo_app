@@ -193,14 +193,14 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
                 child: Container(
                   height: 120,
                   color: Colors.blueGrey,
-                  child: Image.asset("images/banner5.jpeg"),
+                  child: Image.asset("assets/images/banner5.jpeg"),
                 ),
               ),
               Expanded(
                 child: Container(
                   color: Colors.brown,
                   height: 120,
-                  child: Image.asset("images/banner6.jpeg"),
+                  child: Image.asset("assets/images/banner6.jpeg"),
                 ),
               ),
             ],

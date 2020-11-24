@@ -76,7 +76,7 @@ class _HomePageState extends State<HomewPage> with TickerProviderStateMixin {
                           }),
                   Center(
                     child: Image.asset(
-                      "images/welcome_bg.jpeg",
+                      "assets/images/welcome_bg.jpeg",
                       height: MediaQuery.of(context).size.height / 2,
                     ),
                   ),

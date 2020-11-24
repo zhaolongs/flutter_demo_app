@@ -44,10 +44,10 @@ class _BannerHomepageState extends State<BannerHomepage> {
   Timer _timer;
   //本地资源图片
   List<String> imageList = [
-    "images/banner1.webp",
-    "images/banner2.webp",
-    "images/banner3.webp",
-    "images/banner4.webp",
+    "assets/images/banner1.webp",
+    "assets/images/banner2.webp",
+    "assets/images/banner3.webp",
+    "assets/images/banner4.webp",
   ];
 
   //当前显示的索引

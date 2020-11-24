@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
           height: 44,
         ),
         Image.asset(
-          "images/app_icon.png",
+          "assets/images/app_icon.png",
           width: 60,
           height: 60,
         ),

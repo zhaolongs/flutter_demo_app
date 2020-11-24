@@ -74,11 +74,11 @@ class _ExampleState extends State with SingleTickerProviderStateMixin {
         //层叠
         child: Stack(
           children: <Widget>[
-            //水波纹背景
+            //第一部分 水波纹背景
             buildFirstAnimation(size),
-            //顶部的文本
+            //第二部分 顶部的文本
             buildTopText(size),
-            //底部的按钮
+            //第三部分 底部的按钮
             buildBottomButton(size),
           ],
         ),

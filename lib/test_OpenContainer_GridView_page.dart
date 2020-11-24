@@ -160,7 +160,7 @@ class _HomePageState extends State<AnimationOpenContainerPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          "images/banner3.webp",
+          "assets/images/banner3.webp",
           width: 96,
           fit: BoxFit.fill,
           height: 96,
@@ -202,7 +202,7 @@ class DetailsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
-            "images/banner3.webp",
+            "assets/images/banner3.webp",
             fit: BoxFit.fill,
           ),
           SizedBox(

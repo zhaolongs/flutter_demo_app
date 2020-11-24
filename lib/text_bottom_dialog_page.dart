@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage>{
       height: 310,
       child: Column(
         children: [
-          buildItem("微信登录","images/wx.png",onTap:(){
+          buildItem("微信登录","assets/images/wx.png",onTap:(){
             setState(() {
               resultMessage = "微信登录";
             });
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage>{
           //分割线
           Divider(),
 
-          buildItem("QQ登录","images/qq.png",onTap:(){
+          buildItem("QQ登录","assets/images/qq.png",onTap:(){
             setState(() {
               resultMessage = "qq 登录点击";
             });
@@ -86,14 +86,14 @@ class _HomePageState extends State<HomePage>{
 
           //分割线
           Divider(),
-          buildItem("天翼登录","images/tianyi.png",onTap:(){
+          buildItem("天翼登录","assets/images/tianyi.png",onTap:(){
             setState(() {
               resultMessage = "天翼登录 点击";
             });
           }),
           //分割线
           Divider(),
-          buildItem("密码登录","images/password.png",onTap:(){
+          buildItem("密码登录","assets/images/password.png",onTap:(){
             setState(() {
               resultMessage = "密码登录 点击";
             });

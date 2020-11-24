@@ -107,7 +107,7 @@ class DetailsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
-            "images/banner3.webp",
+            "assets/images/banner3.webp",
             fit: BoxFit.fill,
           ),
           SizedBox(

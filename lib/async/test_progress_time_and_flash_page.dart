@@ -178,7 +178,7 @@ class _TestABPageState extends State {
       top: 0,
       bottom: 0,
       child: Image.asset(
-        "images/welcome_bg.jpeg",
+        "assets/images/welcome_bg.jpeg",
         fit: BoxFit.fill,
       ),
     );

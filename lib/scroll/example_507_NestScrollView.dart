@@ -164,7 +164,7 @@ class _ExampleState extends State<Example507>
             Container(
               //缩放的图片
               width: MediaQuery.of(context).size.width,
-              child: Image.asset("images/banner3.webp",
+              child: Image.asset("assets/images/banner3.webp",
                   height: 240 + extraHeight, fit: _fitType),
             )
           ],
@@ -240,7 +240,7 @@ class _ExampleState extends State<Example507>
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Image.asset(
-                                "images/man.png",
+                                "assets/images/man.png",
                                 width: 12,
                                 height: 12,
                               ),
@@ -278,7 +278,7 @@ class _ExampleState extends State<Example507>
                 height: 88,
                 child: ClipOval(
                   child: Image.asset(
-                    "images/banner3.webp",
+                    "assets/images/banner3.webp",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -403,7 +403,7 @@ class _PersonPage extends State {
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(2)),
           child: Image.asset(
-            "images/banner3.webp",
+            "assets/images/banner3.webp",
             width: 116,
             fit: BoxFit.fill,
             height: 76,

@@ -81,7 +81,7 @@ class _TestPageState extends State<HeroHomePage> {
       child: Hero(
         tag: "test",
         child: Image.asset(
-          "images/banner3.webp",
+          "assets/images/banner3.webp",
           width: 96,
           fit: BoxFit.fill,
           height: 96,
@@ -198,7 +198,7 @@ class DetailsPage extends StatelessWidget {
             Navigator.of(context).pop();
           },
           child: Image.asset(
-            "images/banner3.webp",
+            "assets/images/banner3.webp",
             fit: BoxFit.fill,
           ),
         ),

@@ -99,7 +99,7 @@ class _TestABPageState extends State {
   buildImage() {
     return Positioned.fill(
       child: Image.asset(
-        "images/welcome_bg.jpeg",
+        "assets/images/welcome_bg.jpeg",
         fit: BoxFit.fill,
       ),
     );

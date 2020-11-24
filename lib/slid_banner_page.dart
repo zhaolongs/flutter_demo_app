@@ -100,10 +100,10 @@ class _ScrollHomePageState extends State with SingleTickerProviderStateMixin {
   //lib/code15/main_data1508.dart
   //图片数据
   List<String> imagePathList = [
-    "images/banner1.webp",
-    "images/banner2.webp",
-    "images/banner3.webp",
-    "images/banner4.webp",
+    "assets/images/banner1.webp",
+    "assets/images/banner2.webp",
+    "assets/images/banner3.webp",
+    "assets/images/banner4.webp",
   ];
 
   //构建用来显示多张图片的PageView

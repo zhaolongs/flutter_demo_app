@@ -68,7 +68,7 @@ class MyHomePage extends StatelessWidget {
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: Image.asset(
-                                        "images/audio_waveform.png")
+                                        "assets/images/audio_waveform.png")
                                         .image))),
                       ),
                     ],

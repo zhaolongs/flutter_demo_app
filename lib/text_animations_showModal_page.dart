@@ -59,7 +59,7 @@ class _HomePageState extends State<AnimationSshowModalHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
-                    "images/banner3.webp",
+                    "assets/images/banner3.webp",
                     width: 76,
                     fit: BoxFit.fill,
                     height: 76,
@@ -142,7 +142,7 @@ class HomePage2 extends StatelessWidget {
           },
           child: Container(
             child: Center(
-              child: Image.asset("images/banner3.webp"),
+              child: Image.asset("assets/images/banner3.webp"),
             ),
           ),
         ),

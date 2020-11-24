@@ -45,7 +45,7 @@ class _TestPageState extends State<HomePage> {
             print("点击 了图片");
           },
           child: Image.asset(
-            "images/banner3.webp",
+            "assets/images/banner3.webp",
             fit: BoxFit.fill,
           ),
         ),

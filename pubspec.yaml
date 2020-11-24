@@ -37,7 +37,7 @@ dependencies:
   shake_animation_widget: ^2.1.2
 
   matrix4_transform: ^1.1.5
-
+  cached_network_image: ^2.3.3
   flutter_bloc: ^6.0.6
 
   dio: ^3.0.10
@@ -61,6 +61,16 @@ dependencies:
       url: https://github.com/zhaolongs/flutter_html_text_plugin.git
       ref: master
   liquid_swipe: ^1.5.0
+  flutter_swiper: ^1.1.6
+
+  flutter_svg: ^0.18.0 #it helps us to use SVG in our app
+
+  flare_flutter: any
+
+  google_fonts: ^1.1.1
+  flutter_custom_clippers: ^1.1.2
+  clip_shadow: ^0.2.1
+
 
 dev_dependencies:
   flutter_test:
@@ -111,11 +121,32 @@ flutter:
   #配置图片的目录结构
   assets:
     #一倍图目录
-    - images/
-    - images/logos/
+    - assets/images/
+    - assets/logos/
+    - assets/animation/
 
 
   fonts:
     - family: OpenSans
       fonts:
-        - asset: images/fonts/OpenSans.ttf
+        - asset: assets/fonts/OpenSans.ttf
+    - family: TikTokIcons
+      fonts:
+        - asset: assets/fonts/TikTokIcons.ttf
+    - family: Open Sans
+      fonts:
+        - asset: assets/fonts/OpenSans-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/OpenSans-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/OpenSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/OpenSans-Regular.ttf
+          weight: 400
+    - family: Circular
+      fonts:
+        - asset: assets/fonts/CircularStd-Medium.ttf
+        - asset: assets/fonts/CircularAir-Light.ttf
+          weight: 100
+        - asset: assets/fonts/CircularStd-Bold.ttf
+          weight: 500

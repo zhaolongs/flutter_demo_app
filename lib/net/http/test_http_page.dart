@@ -104,6 +104,7 @@ class _TestPageState extends State<HomePage> {
             '请求异常 ${response.statusCode}';
       }
     } catch (exception) {
+      //异常数据处理
       result = 'Failed getting IP address';
     }
 
