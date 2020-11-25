@@ -23,16 +23,14 @@ void main() {
   );
 }
 
-
 //定义一个全局的内容主颜色
 Color mainColor = Color(0xFFCADCED);
 
-
+///默认显示的首页面
 class TestPieAnimationPage extends StatefulWidget {
   @override
   _TestPieAnimationPageState createState() => _TestPieAnimationPageState();
 }
-
 
 class _TestPieAnimationPageState extends State<TestPieAnimationPage>
     with SingleTickerProviderStateMixin {
@@ -58,35 +56,36 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
         duration: Duration(milliseconds: 1000),
         vsync: this);
 
+    //在 0~500毫秒内 执行背景阴影抬高的操作
     _bgAnimation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
         //执行时间 区间
-        curve: Interval(0.0, 0.5,curve: Curves.bounceOut),
+        curve: Interval(0.0, 0.5, curve: Curves.bounceOut),
       ),
     );
 
+    //在 400 ~ 800 毫秒的区间内执行画饼的操作动画
     _progressAnimation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
         //执行时间 区间
-        curve: Interval(0.4, 0.8,curve: Curves.bounceOut),
+        curve: Interval(0.4, 0.8, curve: Curves.bounceOut),
       ),
     );
 
+    //在 700 ~ 1000 毫秒的区间 执行最上层的数字抬高的操作动画
     _numberAnimation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _animationController,
         //执行时间 区间
-        curve: Interval(0.7, 1.0,curve: Curves.bounceOut),
+        curve: Interval(0.7, 1.0, curve: Curves.bounceOut),
       ),
     );
 
     //添加 一个监听 刷新页面
     _animationController.addListener(() {
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
@@ -118,14 +117,7 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
     );
   }
 
-  //定义数据模型
-  List _list = [
-    {"title": "生活费", "number": 200, "color": Colors.lightBlueAccent},
-    {"title": "交通费", "number": 200, "color": Colors.green},
-    {"title": "贷款费", "number": 400, "color": Colors.amber},
-    {"title": "游玩费", "number": 100, "color": Colors.orange},
-    {"title": "电话费", "number": 100, "color": Colors.deepOrangeAccent},
-  ];
+
 
   buildRow() {
     //左右排列的线性布局
@@ -141,69 +133,84 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
         Expanded(
           flex: 6,
           //层叠布局
-          child: Stack(
-            //子 Widget 居中
-            alignment: Alignment.center,
-            children: [
-              //第一层
-              Container(
-                //来个内边距
-                padding: EdgeInsets.all(22),
-                //来个边框装饰
-                decoration:
-                    BoxDecoration(color: mainColor, shape: BoxShape.circle,
-                        //来个阴影
-                        boxShadow: [
-                      BoxShadow(
-                        color: Colors.white,
-                        spreadRadius: -8*_bgAnimation.value,
-                        offset: Offset(- 5*_bgAnimation.value, -5*_bgAnimation.value),
-                        blurRadius: 30*_bgAnimation.value,
-                      ),
-                      BoxShadow(
-                        //模糊颜色
-                        color: Colors.blue[300].withOpacity(0.3),
-                        //模糊半径
-                        spreadRadius: 2*_bgAnimation.value,
-                        //阴影偏移量
-                        offset: Offset(5*_bgAnimation.value, 5*_bgAnimation.value),
-                        //模糊度
-                        blurRadius: 20*_bgAnimation.value,
-                      ),
-                    ]),
-                //开始绘制神操作
-                child: CustomPaint(
-                  size: Size(200, 200),
-                  painter: CustomShapPainter(_list,_progressAnimation.value),
+          child: buildRightStack(),
+        ),
+      ],
+    );
+  }
+
+  Stack buildRightStack() {
+    return Stack(
+      //子 Widget 居中
+      alignment: Alignment.center,
+      children: [
+        //第一层
+        Container(
+          //来个内边距
+          padding: EdgeInsets.all(22),
+          //来个边框装饰
+          decoration: BoxDecoration(color: mainColor, shape: BoxShape.circle,
+              //来个阴影
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.white,
+                  spreadRadius: -8 * _bgAnimation.value,
+                  offset:
+                      Offset(-5 * _bgAnimation.value, -5 * _bgAnimation.value),
+                  blurRadius: 30 * _bgAnimation.value,
                 ),
-              ),
-              //第二层
-              Container(
-                width: 100,
-                decoration: BoxDecoration(
-                  color: mainColor,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                        spreadRadius: 3*_numberAnimation.value,
-                        blurRadius: 5*_numberAnimation.value,
-                        offset: Offset(5*_numberAnimation.value, 5*_numberAnimation.value),
-                        color: Colors.black54),
-                  ],
+                BoxShadow(
+                  //模糊颜色
+                  color: Colors.blue[300].withOpacity(0.3),
+                  //模糊半径
+                  spreadRadius: 2 * _bgAnimation.value,
+                  //阴影偏移量
+                  offset:
+                      Offset(5 * _bgAnimation.value, 5 * _bgAnimation.value),
+                  //模糊度
+                  blurRadius: 20 * _bgAnimation.value,
                 ),
-                child: Center(
-                  child: Text(
-                    "￥100",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                  ),
-                ),
-              ),
+              ]),
+          //开始绘制神操作
+          child: CustomPaint(
+            size: Size(200, 200),
+            painter: CustomShapPainter(_list, _progressAnimation.value),
+          ),
+        ),
+        //第二层
+        Container(
+          width: 100,
+          decoration: BoxDecoration(
+            color: mainColor,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                  spreadRadius: 3 * _numberAnimation.value,
+                  blurRadius: 5 * _numberAnimation.value,
+                  offset: Offset(
+                      5 * _numberAnimation.value, 5 * _numberAnimation.value),
+                  color: Colors.black54),
             ],
+          ),
+          child: Center(
+            child: Text(
+              "￥100",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+            ),
           ),
         ),
       ],
     );
   }
+
+  //定义数据模型
+  List _list = [
+    {"title": "生活费", "number": 200, "color": Colors.lightBlueAccent},
+    {"title": "交通费", "number": 200, "color": Colors.green},
+    {"title": "贷款费", "number": 400, "color": Colors.amber},
+    {"title": "游玩费", "number": 100, "color": Colors.orange},
+    {"title": "电话费", "number": 100, "color": Colors.deepOrangeAccent},
+  ];
 
   //左边
   Column buildLeftColumn() {
@@ -247,7 +254,8 @@ class CustomShapPainter extends CustomPainter {
   List list;
 
   double progress;
-  CustomShapPainter(this.list,this.progress);
+
+  CustomShapPainter(this.list, this.progress);
 
   //来个画笔
   Paint _paint = new Paint()..isAntiAlias = true;
@@ -279,7 +287,7 @@ class CustomShapPainter extends CustomPainter {
       double flag = item["number"] / total;
 
       //计算弧度
-      double sweepRadin = flag * 2 * pi *progress;
+      double sweepRadin = flag * 2 * pi * progress;
 
       //开始绘制弧
       //设置一下画笔的颜色
