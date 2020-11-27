@@ -35,9 +35,11 @@ class TestPieAnimationPage extends StatefulWidget {
 }
 
 class _TestPieAnimationPageState extends State<TestPieAnimationPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   //来个动画控制器
   AnimationController _animationController;
+  AnimationController _lineAnimationController;
+  AnimationController _loopAnimationController;
 
   //控制背景抬高使用的
   Animation<double> _bgAnimation;
@@ -58,6 +60,15 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
         duration: Duration(milliseconds: 1000),
         vsync: this);
 
+    _lineAnimationController = new AnimationController(
+        //执行时间为 1 秒
+        duration: Duration(milliseconds: 1000),
+        vsync: this);
+
+    _loopAnimationController = new AnimationController(
+        //执行时间为 1 秒
+        duration: Duration(milliseconds: 1000),
+        vsync: this);
     //在 0~500毫秒内 执行背景阴影抬高的操作
     _bgAnimation = Tween(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
@@ -89,22 +100,67 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
     _animationController.addListener(() {
       setState(() {});
     });
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _lineAnimationController.reset();
+        _lineAnimationController.forward();
+      }
+    });
+    _lineAnimationController.addListener(() {
+      setState(() {});
+    });
+    _loopAnimationController.addListener(() {
+      setState(() {
+        golbalStart+=0.01;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _loopAnimationController.dispose();
+    _lineAnimationController.dispose();
+    _animationController.dispose();
+    super.dispose();
+  }
+  @override
+  void didChangeDependencies() {
+
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: mainColor,
       //页面的主内容 先来个居中
-      body: Center(
-        child: Container(
-          //来个高度
-          height: 260,
-          //宽度填充
-          width: MediaQuery.of(context).size.width,
-          //设置一下背景
-          color: mainColor,
-          //封装一个方法构建左右排列的
-          child: buildRow(),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              //来个高度
+              height: 260,
+              //宽度填充
+              width: MediaQuery.of(context).size.width,
+              //设置一下背景
+              color: mainColor,
+              //封装一个方法构建左右排列的
+              child: buildRow(),
+            ),
+            Positioned(
+              bottom: 44,
+              child: IconButton(
+                icon: Icon(Icons.looks),
+                onPressed: () {
+                  _loopAnimationController.reset();
+                  _loopAnimationController.repeat();
+                },
+              ),
+            )
+          ],
         ),
       ),
       //右下角的悬浮按钮
@@ -126,11 +182,7 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
 
   double _downX = 0.0;
   double _downY = 0.0;
-  double _flagX = 0.0;
-  double _flagY = 0.0;
   bool _isMove = false;
-  double _startRadin = 0.0;
-  double _themRadin = 0.0;
 
   Stack buildRightStack() {
     return Stack(
@@ -172,7 +224,7 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
                 _downY = localPosition.dy;
                 _downX = localPosition.dx;
                 _isMove = false;
-                print("onTapDown $_downX");
+                // print("onTapDown $_downX");
                 setState(() {});
               });
             },
@@ -189,32 +241,21 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
               double dx = localPosition.dx;
               double dy = localPosition.dy;
 
-              _downY = dy ;
-              _downX = dx ;
+              _downY = dy;
+              _downX = dx;
 
-              print(
-                  "onPanUpdate  _downX $_downX _downY $_downY _flagY $_flagY");
-              double radin = atan2(_downY, _downX);
-              if(!_isMove&&_startRadin!=0){
-                _flagX = radin - _startRadin;
-              }
               _isMove = true;
-              _startRadin = radin;
-
               setState(() {});
             },
             onTapUp: (TapUpDetails details) {
               Offset localPosition = details.localPosition;
             },
-            onPanEnd: (DragEndDetails details) {
-              _themRadin = _startRadin;
-              _flagY = 0.0;
-              _flagX = 0.0;
-              print("tap onPanEnd _startRadin $_startRadin");
-            },
+            onPanEnd: (DragEndDetails details) {},
             child: CustomPaint(
               size: Size(300, 300),
-              painter: CustomShapPainter(_list, _progressAnimation.value,
+              painter: CustomShapPainter(_list,
+                  pieProgress: _progressAnimation.value,
+                  lineProgress: _lineAnimationController.value,
                   downX: _downX,
                   downY: _downY,
                   startRadin: golbalStart,
@@ -280,14 +321,18 @@ class CustomShapPainter extends CustomPainter {
   List list;
 
   Function(int index) clickCallBack;
-  double progress;
+  double pieProgress;
+  double lineProgress;
 
-  CustomShapPainter(this.list, this.progress,
-      {this.downX = 0.0,
+  CustomShapPainter(this.list,
+      {this.pieProgress,
+      this.lineProgress,
+      this.downX = 0.0,
       this.downY = 0.0,
       this.isMove,
       this.startRadin = 0.0,
-      this.clickCallBack});
+      this.clickCallBack,
+      this.isLog = false});
 
   //来个画笔
   Paint _paint = new Paint()
@@ -302,36 +347,44 @@ class CustomShapPainter extends CustomPainter {
 
   double downX;
   double downY;
+  bool isLog;
 
   bool isMove;
   double radius;
-  double line1;
-  double line2;
+  double line1 = 0.0;
+  double line2 = 0.0;
   double startRadin = 0.0;
 
   //圆周率（Pi）是圆的周长与直径的比值，一般用希腊字母π表示
   //绘制内容
   @override
   void paint(Canvas canvas, Size size) {
+    //计算半径
     if (size.width > size.height) {
       radius = size.height / 3;
     } else {
       radius = size.width / 3;
     }
 
-    line1 = radius / 3;
-    line2 = radius / 2;
-
+    if (lineProgress > 0.1) {
+      line1 = radius / 3;
+      line2 = radius * lineProgress;
+    }
+    //将原点移动到画布中心
     canvas.translate(size.width / 2, size.height / 2);
-
+    //合对当前手指按下的点
     downY -= size.height / 2;
     downX -= size.width / 2;
-
-    var calculatorDegree2 = calculatorDegree(0, 0, radius, 0, downX, downY);
-
+    logPrint("手指按下的位置 downX $downX downY $downY");
+    var calculatorDegree2 = atan2(downY, downX);
     if (downY < 0) {
-      calculatorDegree2 = pi + pi - calculatorDegree2;
+      // print("downY $downY downX $downX  calculatorDegree2 $calculatorDegree2");
+      calculatorDegree2 = 2 * pi - calculatorDegree2.abs();
+    } else {
+      // print("downY $downY downX $downX  calculatorDegree2 $calculatorDegree2");
     }
+
+    logPrint("手指按下的位置距离开始的角度");
 
     // 设置起始角度
 
@@ -342,9 +395,22 @@ class CustomShapPainter extends CustomPainter {
 
     if (isMove) {
       startRadin = atan2(downY, downX);
+      print("移动中 $startRadin");
     }
+
     golbalStart = startRadin;
 
+    calculatorDegree2 -= golbalStart;
+
+    if (calculatorDegree2 >= (2 * pi)) {
+      print("太大了 calculatorDegree2 $calculatorDegree2");
+      calculatorDegree2 = calculatorDegree2 - 2 * pi;
+      print("太大了 calculatorDegree2 $calculatorDegree2");
+    }
+
+    if (calculatorDegree2 < 0) {
+      calculatorDegree2 = 2 * pi - calculatorDegree2.abs();
+    }
     // print("_startRadin $startRadin");
 
     for (var i = 0; i < list.length; i++) {
@@ -355,19 +421,22 @@ class CustomShapPainter extends CustomPainter {
       double flag = entity["number"] / total;
 
       //计算弧度
-      double sweepRadin = flag * 2 * pi * progress;
+      double sweepRadin = flag * 2 * pi * pieProgress;
 
       double endRadin = startRadin + sweepRadin;
 
       double tagRadius = radius;
       if (!isMove &&
-          calculatorDegree2 > startRadin &&
-          calculatorDegree2 <= endRadin) {
+          calculatorDegree2 > (startRadin - golbalStart) &&
+          calculatorDegree2 <= (endRadin - golbalStart)) {
         tagRadius += 10;
         if (clickCallBack != null) {
           clickCallBack(i);
         }
       }
+
+      print(
+          "绘制 calculatorDegree2 $calculatorDegree2  startRadin $startRadin endRadin $endRadin");
 
       canvas.drawArc(Rect.fromCircle(center: Offset(0, 0), radius: tagRadius),
           startRadin, sweepRadin, true, _paint);
@@ -378,10 +447,11 @@ class CustomShapPainter extends CustomPainter {
       startRadin += sweepRadin;
     }
     // 绘制测试点
-    // _paint.color=Colors.black54;
-    // _paint.style=PaintingStyle.stroke;
-    // canvas.drawArc(Rect.fromCircle(center: Offset(0, 0), radius: radius),
-    //     startRadin, calculatorDegree2, true, _paint);
+    _paint.color = Colors.black54;
+    _paint.style = PaintingStyle.stroke;
+    canvas.drawArc(Rect.fromCircle(center: Offset(0, 0), radius: radius),
+        golbalStart, calculatorDegree2, true, _paint);
+    canvas.drawCircle(Offset(downX, downY), 20, _paint);
   }
 
   //返回true 刷新
@@ -396,7 +466,6 @@ class CustomShapPainter extends CustomPainter {
     // 1，计算开始坐标和转折点坐标
     var startX = r * (cos(currentAngle));
     var startY = r * (sin(currentAngle));
-
     var stopX = (r + line1) * (cos(currentAngle));
     var stopY = (r + line1) * (sin(currentAngle));
 
@@ -436,7 +505,9 @@ class CustomShapPainter extends CustomPainter {
         textStartX = (stopX - (line2 - w) / 2 - w);
       }
     }
-    tp.paint(canvas, Offset(textStartX, stopY + offset));
+    if (lineProgress >= 1.0) {
+      tp.paint(canvas, Offset(textStartX, stopY + offset));
+    }
 
     // 绘制上方百分比，步骤同上
     // todo 保留2为小数，确保精准度
@@ -462,7 +533,9 @@ class CustomShapPainter extends CustomPainter {
       }
     }
 
-    tpPre.paint(canvas, Offset(textStartX, stopY - offset - h));
+    if (lineProgress >= 0.5) {
+      tpPre.paint(canvas, Offset(textStartX, stopY - offset - h));
+    }
   }
 
   // 文字画笔 风格定义
@@ -498,6 +571,12 @@ class CustomShapPainter extends CustomPainter {
     double distance = 0;
     distance = sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
     return distance;
+  }
+
+  void logPrint(String message) {
+    if (isLog) {
+      debugPrint(message);
+    }
   }
 
   ///根据弧度计算度数并且计算AC距离。
