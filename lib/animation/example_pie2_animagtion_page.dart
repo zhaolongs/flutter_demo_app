@@ -126,6 +126,11 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
 
   double _downX = 0.0;
   double _downY = 0.0;
+  double _flagX = 0.0;
+  double _flagY = 0.0;
+  bool _isMove = false;
+  double _startRadin = 0.0;
+  double _themRadin = 0.0;
 
   Stack buildRightStack() {
     return Stack(
@@ -164,18 +169,56 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
               setState(() {
                 ///相对于父组件的位置
                 Offset localPosition = details.localPosition;
-
-                ///相对于屏幕的位置
-                Offset globalPosition = details.globalPosition;
-
                 _downY = localPosition.dy;
                 _downX = localPosition.dx;
+                _isMove = false;
+                print("onTapDown $_downX");
+                setState(() {});
               });
+            },
+            onPanStart: (DragStartDetails details) {
+              Offset localPosition = details.localPosition;
+              double y = localPosition.dy;
+              double x = localPosition.dx;
+
+              print("onPanStart $_downX");
+            },
+            onPanUpdate: (DragUpdateDetails details) {
+              Offset localPosition = details.localPosition;
+
+              double dx = localPosition.dx;
+              double dy = localPosition.dy;
+
+              _downY = dy ;
+              _downX = dx ;
+
+              print(
+                  "onPanUpdate  _downX $_downX _downY $_downY _flagY $_flagY");
+              double radin = atan2(_downY, _downX);
+              if(!_isMove&&_startRadin!=0){
+                _flagX = radin - _startRadin;
+              }
+              _isMove = true;
+              _startRadin = radin;
+
+              setState(() {});
+            },
+            onTapUp: (TapUpDetails details) {
+              Offset localPosition = details.localPosition;
+            },
+            onPanEnd: (DragEndDetails details) {
+              _themRadin = _startRadin;
+              _flagY = 0.0;
+              _flagX = 0.0;
+              print("tap onPanEnd _startRadin $_startRadin");
             },
             child: CustomPaint(
               size: Size(300, 300),
               painter: CustomShapPainter(_list, _progressAnimation.value,
-                  downX: _downX, downY: _downY, clickCallBack: (int value) {
+                  downX: _downX,
+                  downY: _downY,
+                  startRadin: golbalStart,
+                  isMove: _isMove, clickCallBack: (int value) {
                 currentSelect = value;
               }),
             ),
@@ -230,6 +273,7 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
 }
 
 //你可以将这些类封装成不同的类文件 在这里小编为提供 Demo 的方便所以写在一起了
+double golbalStart = 0.0;
 
 class CustomShapPainter extends CustomPainter {
   //数据内容
@@ -239,7 +283,11 @@ class CustomShapPainter extends CustomPainter {
   double progress;
 
   CustomShapPainter(this.list, this.progress,
-      {this.downX = 0.0, this.downY = 0.0, this.clickCallBack});
+      {this.downX = 0.0,
+      this.downY = 0.0,
+      this.isMove,
+      this.startRadin = 0.0,
+      this.clickCallBack});
 
   //来个画笔
   Paint _paint = new Paint()
@@ -254,16 +302,17 @@ class CustomShapPainter extends CustomPainter {
 
   double downX;
   double downY;
+
+  bool isMove;
   double radius;
   double line1;
   double line2;
+  double startRadin = 0.0;
 
   //圆周率（Pi）是圆的周长与直径的比值，一般用希腊字母π表示
   //绘制内容
   @override
   void paint(Canvas canvas, Size size) {
-
-
     if (size.width > size.height) {
       radius = size.height / 3;
     } else {
@@ -283,7 +332,6 @@ class CustomShapPainter extends CustomPainter {
     if (downY < 0) {
       calculatorDegree2 = pi + pi - calculatorDegree2;
     }
-    print("calculatorDegree2 $calculatorDegree2");
 
     // 设置起始角度
 
@@ -292,7 +340,12 @@ class CustomShapPainter extends CustomPainter {
       total += element["number"];
     });
 
-    double startRadin = 0.0;
+    if (isMove) {
+      startRadin = atan2(downY, downX);
+    }
+    golbalStart = startRadin;
+
+    // print("_startRadin $startRadin");
 
     for (var i = 0; i < list.length; i++) {
       var entity = list[i];
@@ -307,14 +360,14 @@ class CustomShapPainter extends CustomPainter {
       double endRadin = startRadin + sweepRadin;
 
       double tagRadius = radius;
-      if (calculatorDegree2 > startRadin && calculatorDegree2 <= endRadin) {
+      if (!isMove &&
+          calculatorDegree2 > startRadin &&
+          calculatorDegree2 <= endRadin) {
         tagRadius += 10;
         if (clickCallBack != null) {
           clickCallBack(i);
         }
       }
-
-
 
       canvas.drawArc(Rect.fromCircle(center: Offset(0, 0), radius: tagRadius),
           startRadin, sweepRadin, true, _paint);
@@ -329,7 +382,6 @@ class CustomShapPainter extends CustomPainter {
     // _paint.style=PaintingStyle.stroke;
     // canvas.drawArc(Rect.fromCircle(center: Offset(0, 0), radius: radius),
     //     startRadin, calculatorDegree2, true, _paint);
-
   }
 
   //返回true 刷新
