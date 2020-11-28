@@ -14,6 +14,7 @@ import 'package:flutter_test_app/canvas/test_bubble_login_page.dart';
 /// 可关注博客：https://blog.csdn.net/zl18603543572
 /// 西瓜视频 https://www.ixigua.com/home/3662978423
 /// 知乎 https://www.zhihu.com/people/zhao-long-90-89
+/// 哔哩 https://www.bilibili.com/video/BV1E54y1677c/
 ///
 ///
 /// 程序入口
