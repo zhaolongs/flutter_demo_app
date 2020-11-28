@@ -21,7 +21,9 @@ import 'package:flutter_test_app/canvas/test_bubble_login_page.dart';
 void main() {
   runApp(
     MaterialApp(
+      //不显示debug标签
       debugShowCheckedModeBanner: false,
+      //默认显示的首页面
       home: TestPage(),
     ),
   );
@@ -113,21 +115,17 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
               ),
             ),
             //第二部分 雪花
-            buildBobbleWidget(context),
+            CustomPaint(
+              size: MediaQuery.of(context).size,
+              //画布
+              painter: SnowCustomMyPainter(list: _list, random: _random),
+            ),
           ],
         ),
       ),
     );
   }
 
-  buildBobbleWidget(BuildContext context) {
-    //画板
-    return CustomPaint(
-      size: MediaQuery.of(context).size,
-      //画布
-      painter: SnowCustomMyPainter(list: _list, random: _random),
-    );
-  }
 }
 
 ///创建画布
@@ -135,23 +133,27 @@ class SnowCustomMyPainter extends CustomPainter {
   List<BobbleBean> list;
   Random random;
 
-  SnowCustomMyPainter({this.list, this.random}); //具体的绘制功能
+  SnowCustomMyPainter({this.list, this.random});
 
   //先来个画笔
   Paint _paint = new Paint()..isAntiAlias = true;
-
+  //具体的绘制功能
   @override
   void paint(Canvas canvas, Size size) {
     // 在绘制前重新计算每个点的位置
     list.forEach((element) {
+      //左右微抖动
       double dx = random.nextDouble() * 2.0 - 1.0;
+      //竖直方向位置偏移
       double dy = element.speed;
-
+      //位置偏移量计算
       element.postion += Offset(dx, dy);
 
+      //重置位置
       if (element.postion.dy > size.height) {
         element.postion = element.origin;
       }
+
     });
     //
     // //绘制
@@ -171,20 +173,17 @@ class SnowCustomMyPainter extends CustomPainter {
   }
 }
 
-///定义气泡
+///定义 雪花模型 用来保存雪花的基本属性信息
 class BobbleBean {
   //位置
   Offset postion;
 
   //初始位置
   Offset origin;
-
   //颜色
   Color color;
-
   //运动的速度
   double speed;
-
   //半径
   double radius;
 }
