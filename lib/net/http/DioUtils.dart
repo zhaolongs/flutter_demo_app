@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 ///代码清单
 class DioUtils {
   Dio _dio;
+
   // 工厂模式
   factory DioUtils() => _getInstance();
 
@@ -22,6 +23,7 @@ class DioUtils {
   DioUtils._internal() {
     // 初始化
     _dio = new Dio();
+
   }
 
   static DioUtils _getInstance() {
@@ -30,6 +32,8 @@ class DioUtils {
     }
     return _instance;
   }
+
+
 
   /// get 请求
   ///[url]请求链接
@@ -62,6 +66,7 @@ class DioUtils {
       errorController(e, s);
     }
   }
+
   /// post 请求
   ///[url]请求链接
   ///[formDataMap]formData 请求参数

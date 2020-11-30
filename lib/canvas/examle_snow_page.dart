@@ -10,8 +10,10 @@ import 'package:flutter_test_app/canvas/test_bubble_login_page.dart';
 /// 创建时间：Created by  on 2020/11/22.
 ///
 /// 可关注公众号：我的大前端生涯   获取最新技术分享
-/// 可关注网易云课堂：https://study.163.com/instructor/1021406098.htm
-/// 可关注博客：https://blog.csdn.net/zl18603543572
+/// 可关注网易云课堂 获取系列课程 ：https://study.163.com/instructor/1021406098.htm
+/// 可关注 CSDN 博客：https://blog.csdn.net/zl18603543572
+/// 可关注 掘金 博客：https://juejin.cn/post/6900009848973623303
+///
 /// 西瓜视频 https://www.ixigua.com/home/3662978423
 /// 知乎 https://www.zhihu.com/people/zhao-long-90-89
 /// 哔哩 https://www.bilibili.com/video/BV1E54y1677c/

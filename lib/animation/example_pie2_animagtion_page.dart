@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_test_app/tk/demo6/config/colors.dart';
 
 /// 创建人： Created by zhaolong
@@ -111,7 +112,7 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
     });
     _loopAnimationController.addListener(() {
       setState(() {
-        golbalStart+=0.01;
+        golbalStart += 0.01;
       });
     });
   }
@@ -123,9 +124,9 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
     _animationController.dispose();
     super.dispose();
   }
+
   @override
   void didChangeDependencies() {
-
     super.didChangeDependencies();
   }
 
@@ -151,13 +152,27 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
               child: buildRow(),
             ),
             Positioned(
-              bottom: 44,
-              child: IconButton(
-                icon: Icon(Icons.looks),
-                onPressed: () {
-                  _loopAnimationController.reset();
-                  _loopAnimationController.repeat();
-                },
+              bottom: 20,
+              child: Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.looks,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    if(_loopAnimationController.isAnimating){
+                      _loopAnimationController.stop();
+                    }else{
+
+                      _loopAnimationController.reset();
+                      _loopAnimationController.repeat();
+                    }
+                  },
+                ),
               ),
             )
           ],
@@ -218,6 +233,7 @@ class _TestPieAnimationPageState extends State<TestPieAnimationPage>
           //开始绘制神操作
           child: GestureDetector(
             onTapDown: (TapDownDetails details) {
+              _loopAnimationController.stop();
               setState(() {
                 ///相对于父组件的位置
                 Offset localPosition = details.localPosition;

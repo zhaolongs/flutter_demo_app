@@ -34,7 +34,9 @@ Color getRandonColor(Random random) {
 
 ///获取随机透明的白色
 Color getRandonWhightColor(Random random) {
-  int a = random.nextInt(200);
+  //0~255 0为完全透明 255 为不透明
+  //这里生成的透明度取值范围为 10~200
+  int a = random.nextInt(190) + 10;
   return Color.fromARGB(a, 255, 255, 255);
 }
 
@@ -140,13 +142,17 @@ class _BobbleLoginPageState extends State<BobbleLoginPage>
           buildTopText(),
           //第五部分 输入框与按钮
           FadeTransition(
-              opacity: _fadeAnimationController, child: buildColumn(context)),
+            opacity: _fadeAnimationController,
+            child: buildColumn(context),
+          ),
         ],
       ),
     );
   }
 
+//第四部分 顶部的文字
   Positioned buildTopText() {
+    //顶部对齐
     return Positioned(
       top: 120,
       left: 0,
@@ -163,7 +169,9 @@ class _BobbleLoginPageState extends State<BobbleLoginPage>
     );
   }
 
+  //第二部分 第二层 气泡
   Widget buildBubble(BuildContext context) {
+    //使用Stream流实现局部更新
     return StreamBuilder<double>(
       stream: _streamController.stream,
       builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
@@ -182,17 +190,22 @@ class _BobbleLoginPageState extends State<BobbleLoginPage>
     );
   }
 
+  //第一部分 第一层 渐变背景
   Container buildBackground() {
     return Container(
       decoration: BoxDecoration(
+        //线性渐变
         gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.lightBlue.withOpacity(0.3),
-              Colors.lightBlueAccent.withOpacity(0.3),
-              Colors.blue.withOpacity(0.3),
-            ]),
+          //渐变角度
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          //渐变颜色组
+          colors: [
+            Colors.lightBlue.withOpacity(0.3),
+            Colors.lightBlueAccent.withOpacity(0.3),
+            Colors.blue.withOpacity(0.3),
+          ],
+        ),
       ),
     );
   }
@@ -207,7 +220,7 @@ class _BobbleLoginPageState extends State<BobbleLoginPage>
     );
   }
 
-  //第二部分 高斯模糊
+  //第三部分 高斯模糊
   buildBlureWidget() {
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 0.3, sigmaY: 0.3),
@@ -216,7 +229,7 @@ class _BobbleLoginPageState extends State<BobbleLoginPage>
       ),
     );
   }
-
+  //第五部分 输入框与按钮
   Widget buildColumn(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(44),
@@ -276,32 +289,45 @@ class _BobbleLoginPageState extends State<BobbleLoginPage>
 }
 
 class CustomMyPainter extends CustomPainter {
+  //创建画笔
   Paint _paint = Paint();
+
+  //保存气泡的集合
   List<BobbleBean> list;
 
+  //随机数变量
   Random random;
 
   CustomMyPainter({this.list, this.random});
 
   @override
   void paint(Canvas canvas, Size size) {
+    //每次绘制都重新计算位置
     list.forEach((element) {
+      //计算偏移
       var velocity = calculateXY(element.speed, element.theta);
+      //新的坐标 微偏移
       var dx = element.postion.dx + velocity.dx;
       var dy = element.postion.dy + velocity.dy;
+      //x轴边界计算
       if (element.postion.dx < 0 || element.postion.dx > size.width) {
         dx = random.nextDouble() * size.width;
       }
+      //y轴边界计算
       if (element.postion.dy < 0 || element.postion.dy > size.height) {
         dy = random.nextDouble() * size.height;
       }
+      //新的位置
       element.postion = Offset(dx, dy);
 
       print("dx $dx dy $dy  ${element.postion}");
     });
 
+    //循环绘制所有的气泡
     list.forEach((element) {
+      //画笔颜色
       _paint.color = element.color;
+      //绘制圆
       canvas.drawCircle(element.postion, element.radius, _paint);
     });
   }
@@ -334,16 +360,12 @@ class BobbleBean {
 class TextFieldWidget extends StatelessWidget {
   //占位提示文本
   final String hintText;
-
   //输入框前置图标
   final IconData prefixIconData;
-
   //输入框后置图标
   final IconData suffixIconData;
-
   //是否隐藏文本
   final bool obscureText;
-
   //输入实时回调
   final Function onChanged;
 
@@ -416,10 +438,8 @@ class TextFieldWidget extends StatelessWidget {
 class ButtonWidget extends StatelessWidget {
   //按钮上的文字
   final String buttonLabel;
-
   //是否填充背景
   final bool hasBorder;
-
   //点击事件回调
   final GestureTapCallback onTap;
 
@@ -433,6 +453,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: Ink(
         //边框
         decoration: BoxDecoration(
